@@ -1,0 +1,167 @@
+{
+  "topics": [
+    {
+      "id": 1,
+      "title": "How to deploy your own AI agent in 30 minutes",
+      "title_pt": "Como implementar o teu pr\u00f3prio agente AI em 30 minutos",
+      "keywords": [
+        "self-hosted AI agent",
+        "local LLM deployment",
+        "Ollama tutorial"
+      ],
+      "language": "en",
+      "status": "failed",
+      "scheduled_date": null
+    },
+    {
+      "id": 2,
+      "title": "The complete guide to multi-agent orchestration with CrewAI",
+      "title_pt": "Guia completo de orquestra\u00e7\u00e3o multi-agente com CrewAI",
+      "keywords": [
+        "CrewAI tutorial",
+        "multi-agent systems",
+        "AI orchestration"
+      ],
+      "language": "en",
+      "status": "published",
+      "scheduled_date": "2026-05-28T13:17:39.838650"
+    },
+    {
+      "id": 3,
+      "title": "Why self-hosted AI is cheaper than ChatGPT Pro",
+      "title_pt": "Porque \u00e9 que a AI auto-hospedada \u00e9 mais barata que o ChatGPT Pro",
+      "keywords": [
+        "self-hosted AI cost",
+        "local LLM vs cloud",
+        "AI savings"
+      ],
+      "language": "en",
+      "status": "published",
+      "scheduled_date": "2026-05-28T14:05:22.533390"
+    },
+    {
+      "id": 4,
+      "title": "Automate your bug bounty workflow with AI",
+      "title_pt": "Automatiza o teu workflow de bug bounty com AI",
+      "keywords": [
+        "bug bounty automation",
+        "AI pentesting",
+        "security automation"
+      ],
+      "language": "en",
+      "status": "pending",
+      "scheduled_date": null
+    },
+    {
+      "id": 5,
+      "title": "Building a RAG pipeline with local LLMs",
+      "title_pt": "Como construir um pipeline RAG com LLMs locais",
+      "keywords": [
+        "RAG pipeline",
+        "local RAG",
+        "vector database",
+        "retrieval augmented generation"
+      ],
+      "language": "en",
+      "status": "pending",
+      "scheduled_date": null
+    },
+    {
+      "id": 6,
+      "title": "5 AI tools that save developers 10+ hours per week",
+      "title_pt": "5 ferramentas de AI que poupam 10+ horas por semana a developers",
+      "keywords": [
+        "AI productivity tools",
+        "developer automation",
+        "time saving AI"
+      ],
+      "language": "en",
+      "status": "pending",
+      "scheduled_date": null
+    },
+    {
+      "id": 7,
+      "title": "Como criar um assistente AI pessoal com Telegram",
+      "title_pt": "Como criar um assistente AI pessoal com Telegram",
+      "keywords": [
+        "assistente Telegram AI",
+        "bot Telegram local",
+        "Hermes Agent"
+      ],
+      "language": "pt",
+      "status": "pending",
+      "scheduled_date": null
+    },
+    {
+      "id": 8,
+      "title": "RAG local com documentos PDF: guia pr\u00e1tico",
+      "title_pt": "RAG local com documentos PDF: guia pr\u00e1tico",
+      "keywords": [
+        "RAG local",
+        "PDF AI",
+        "consulta documentos AI"
+      ],
+      "language": "pt",
+      "status": "pending",
+      "scheduled_date": null
+    },
+    {
+      "id": 9,
+      "title": "Automa\u00e7\u00e3o de ciberseguran\u00e7a com Kali Linux + AI",
+      "title_pt": "Automa\u00e7\u00e3o de ciberseguran\u00e7a com Kali Linux + AI",
+      "keywords": [
+        "Kali Linux AI",
+        "ciberseguran\u00e7a autom\u00e1tica",
+        "pentest automation"
+      ],
+      "language": "pt",
+      "status": "pending",
+      "scheduled_date": null
+    },
+    {
+      "id": 10,
+      "title": "How to run 5 local LLMs on a single machine",
+      "title_pt": "Como correr 5 LLMs locais numa s\u00f3 m\u00e1quina",
+      "keywords": [
+        "multiple local LLMs",
+        "Ollama multi-model",
+        "local AI server"
+      ],
+      "language": "en",
+      "status": "pending",
+      "scheduled_date": null
+    },
+    {
+      "id": 11,
+      "title": "The ultimate AI agent stack in 2026",
+      "title_pt": "A stack de AI agent definitiva em 2026",
+      "keywords": [
+        "AI agent stack",
+        "agent framework 2026",
+        "LangGraph CrewAI"
+      ],
+      "language": "en",
+      "status": "pending",
+      "scheduled_date": null
+    },
+    {
+      "id": 12,
+      "title": "Monitor your AI infrastructure with open-source tools",
+      "title_pt": "Monitoriza a tua infraestrutura AI com ferramentas open-source",
+      "keywords": [
+        "AI monitoring",
+        "self-hosted monitoring",
+        "LLM observability"
+      ],
+      "language": "en",
+      "status": "pending",
+      "scheduled_date": null
+    }
+  ],
+  "categories": {
+    "ai-automation": "AI Automation",
+    "self-hosting": "Self-Hosting",
+    "security": "Cybersecurity",
+    "productivity": "Developer Productivity"
+  }
+}

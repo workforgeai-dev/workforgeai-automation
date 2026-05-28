@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+.env
+.wp_app_pass
+*.zip
+.vscode/
+.idea/
+*.log
+/tmp/
+test_final_60sTEMP_MPY_wvf_snd.mp4
+products/videos/

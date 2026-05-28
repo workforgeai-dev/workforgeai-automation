@@ -1,0 +1,84 @@
+app_name: workforgeai-automation
+content:
+  default_model: nexus-omni
+  fallback_model: qwen2.5-coder:14b
+  languages:
+  - en
+  - pt
+  max_articles_per_run: 3
+  max_words: 2000
+  min_words: 1200
+ollama:
+  base_url: http://localhost:11434
+  model: qwen2.5:3b
+  timeout: 600
+products:
+- currency: EUR
+  name: NEXUS One-Click Deploy
+  price: 49
+  slug: nexus-one-click-deploy
+  update_frequency_days: 14
+- currency: EUR
+  name: AI Productivity Toolkit Premium
+  price: 27
+  slug: ai-productivity-toolkit-premium
+  update_frequency_days: 30
+- currency: EUR
+  name: Bug Bounty AI Agent
+  price: 37
+  slug: bug-bounty-ai-agent
+  update_frequency_days: 30
+schedule:
+  backup_time: 03:00
+  blog_posts:
+  - 08:00
+  - '14:00'
+  - '20:00'
+  health_check_interval_minutes: 30
+  products_update: 05:00
+  social_posts:
+  - 09:00
+  - '15:00'
+  - '21:00'
+  weekly_report_day: saturday
+social:
+  affiliates:
+    amazon: https://amazon.workforgeai.com
+    digitalocean: https://www.digitalocean.com/?ref_code=workforgeai
+    hetzner: https://hetzner.cloud/?ref=workforgeai
+    hostinger: https://hostinger.com/?REFERRALCODE=WORKFORGEAI
+    namecheap: https://namecheap.pxf.io/workforgeai
+    vultr: https://www.vultr.com/?ref=workforgeai
+  facebook:
+    access_token: ''
+    enabled: true
+    page_id: ''
+  instagram:
+    access_token: ''
+    business_account_id: ''
+    enabled: true
+  linkedin:
+    access_token: ''
+    enabled: true
+    organization_id: ''
+  tiktok:
+    access_token: ''
+    client_key: ''
+    client_secret: ''
+    enabled: true
+  twitter:
+    access_secret: ''
+    access_token: ''
+    api_key: ''
+    api_secret: ''
+    bearer_token: ''
+    enabled: true
+    threads_per_article: true
+  youtube:
+    api_key: ''
+    enabled: true
+    refresh_token: ''
+version: 1.0.0
+wordpress:
+  api_base: https://workforgeai.com/wp-json/wp/v2
+  url: https://workforgeai.com
