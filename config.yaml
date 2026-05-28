@@ -1,0 +1,64 @@
+---
+app_name: workforgeai-automation
+version: 1.0.0
+
+wordpress:
+  url: "https://workforgeai.com"
+  api_base: "https://workforgeai.com/wp-json/wp/v2"
+
+content:
+  default_model: "nexus-omni"
+  fallback_model: "qwen2.5-coder:14b"
+  languages: ["en", "pt"]
+  max_articles_per_run: 3
+  min_words: 1200
+  max_words: 2000
+
+social:
+  twitter:
+    enabled: true
+    threads_per_article: true
+  facebook:
+    enabled: true
+    page_id: ""
+  instagram:
+    enabled: true
+  tiktok:
+    enabled: true
+  youtube:
+    enabled: true
+
+schedule:
+  blog_posts: ["08:00", "14:00", "20:00"]
+  social_posts: ["09:00", "15:00", "21:00"]
+  products_update: "05:00"
+  health_check_interval_minutes: 30
+  weekly_report_day: "saturday"
+  backup_time: "03:00"
+
+nexus:
+  api_url: "http://192.168.1.116:8000"
+  api_key: "1da4cf036392bf10d3c84aa572b97b202a5ea30f8ee913e6f24b0690e25b70d4"
+  health_endpoint: "/health"
+  chat_endpoint: "/v2/chat"
+
+pi:
+  host: "192.168.1.123"
+  user: "erico"
+
+products:
+  - name: "NEXUS One-Click Deploy"
+    slug: "nexus-one-click-deploy"
+    price: 49
+    currency: "EUR"
+    update_frequency_days: 14
+  - name: "AI Productivity Toolkit Premium"
+    slug: "ai-productivity-toolkit-premium"
+    price: 27
+    currency: "EUR"
+    update_frequency_days: 30
+  - name: "Bug Bounty AI Agent"
+    slug: "bug-bounty-ai-agent"
+    price: 37
+    currency: "EUR"
+    update_frequency_days: 30
