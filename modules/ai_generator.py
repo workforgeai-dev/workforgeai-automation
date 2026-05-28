@@ -11,7 +11,7 @@ class NEXUSClient:
         self.headers = {"Content-Type": "application/json"}
         if self.api_key:
             self.headers["X-API-Key"] = self.api_key
-        self.timeout = 120
+        self.timeout = 600
 
     def _api_url(self, path):
         return f"{self.base_url}{path}"
@@ -40,6 +40,7 @@ class NEXUSClient:
             if language == "pt"
             else "Write in English."
         )
+        keywords_str = ", ".join(keywords)
         prompt = f"""You are a professional tech blogger for WorkForgeAI.com.
 Write a comprehensive blog article about: {topic}
 
@@ -47,26 +48,29 @@ Write a comprehensive blog article about: {topic}
 
 Requirements:
 - Minimum {word_count} words
-- 4-6 H2 section headings
+- 4-6 H2 section headings (use actual <h2> tags)
 - Include introduction and conclusion
-- Natural SEO keyword placement for: {', '.join(keywords)}
+- Natural SEO keyword placement for: {keywords_str}
 - Include 2-3 internal CTAs linking to WorkForgeAI products
 - Professional but accessible tone for developers and tech entrepreneurs
-- No markdown code blocks - just plain HTML paragraphs with <h2> and <p> tags
+- Use ONLY clean HTML with <h2> and <p> tags
+- CRITICAL: Do NOT output markdown code blocks, backticks, or HTML entities like &lt; &gt; &quot;
+- CRITICAL: Do NOT wrap output in <!DOCTYPE html> or <html> tags
+- CRITICAL: Do NOT use &#8220; or any HTML entity codes - use actual characters
 - Meta description (max 160 chars) at the start, wrapped in <!-- meta: -->
 
-Format the output as:
+Format EXACTLY:
 <!-- meta: META DESCRIPTION HERE -->
 <article>
-HTML content here...
+HTML content here with <h2> and <p> only
 </article>"""
 
-        result = self._post("/v2/chat", {"message": prompt, "model": "nexus-omni", "stream": False})
+        result = self._post("/v1/nexus", {"text": prompt, "agent": "nexus-omni", "use_cache": False})
         return result.get("response", "")
 
     def generate_social_post(self, article_text, platform, language="en"):
         platform_instructions = {
-            "twitter": "Write a thread of 5 tweets (each <280 chars). Format as: 1/5 ... 2/5 ...",
+            "twitter": "Write a thread of 5 tweets. Separate each tweet with '---' on its own line. Each tweet must be under 280 characters.",
             "facebook": "Write a single engaging Facebook post (150-300 chars) with a call to action.",
             "linkedin": "Write a professional LinkedIn post (200-400 chars) with hashtags.",
         }
@@ -75,5 +79,6 @@ HTML content here...
 Language: {'English' if language == 'en' else 'Portuguese from Portugal'}
 Article: {utils.truncate_text(article_text, 3000)}"""
 
-        result = self._post("/v2/chat", {"message": prompt, "model": "nexus-omni", "stream": False})
+        result = self._post("/v1/nexus", {"text": prompt, "agent": "nexus-omni", "use_cache": False})
         return result.get("response", "")
+
