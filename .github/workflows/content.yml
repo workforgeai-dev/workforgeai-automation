@@ -1,0 +1,20 @@
+name: Daily Content Pipeline
+on:
+  schedule:
+    - cron: "0 8,14,20 * * *"
+  workflow_dispatch:
+
+jobs:
+  content:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate blog post
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PI_HOST }}
+          username: ${{ secrets.PI_USER }}
+          key: ${{ secrets.PI_SSH_KEY }}
+          script: |
+            cd /home/erico/automation
+            /usr/bin/python3 orchestrator.py --mode=blog --count=1
