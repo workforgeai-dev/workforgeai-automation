@@ -5,11 +5,11 @@ content:
   - en
   - pt
   max_articles_per_run: 3
-  max_words: 1500
-  min_words: 800
+  max_words: 1000
+  min_words: 600
 ollama:
   base_url: http://localhost:11434
-  model: qwen2.5:7b
+  model: qwen2.5:3b
   timeout: 600
 telegram:
   token: 8385871459:AAFWkAnCSzp9G0o8VqEGL_QWWyHbZ6AZp4k
