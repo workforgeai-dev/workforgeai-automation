@@ -3,20 +3,20 @@
     {
       "id": 1,
       "title": "How to deploy your own AI agent in 30 minutes",
-      "title_pt": "Como implementar o teu pr\u00f3prio agente AI em 30 minutos",
+      "title_pt": "Como implementar o teu próprio agente AI em 30 minutos",
       "keywords": [
         "self-hosted AI agent",
         "local LLM deployment",
         "Ollama tutorial"
       ],
       "language": "en",
-      "status": "failed",
-      "scheduled_date": null
+      "status": "published",
+      "scheduled_date": "2026-05-28T14:29:16.456979"
     },
     {
       "id": 2,
       "title": "The complete guide to multi-agent orchestration with CrewAI",
-      "title_pt": "Guia completo de orquestra\u00e7\u00e3o multi-agente com CrewAI",
+      "title_pt": "Guia completo de orquestração multi-agente com CrewAI",
       "keywords": [
         "CrewAI tutorial",
         "multi-agent systems",
@@ -29,7 +29,7 @@
     {
       "id": 3,
       "title": "Why self-hosted AI is cheaper than ChatGPT Pro",
-      "title_pt": "Porque \u00e9 que a AI auto-hospedada \u00e9 mais barata que o ChatGPT Pro",
+      "title_pt": "Porque é que a AI auto-hospedada é mais barata que o ChatGPT Pro",
       "keywords": [
         "self-hosted AI cost",
         "local LLM vs cloud",
@@ -49,7 +49,7 @@
         "security automation"
       ],
       "language": "en",
-      "status": "pending",
+      "status": "removed",
       "scheduled_date": null
     },
     {
@@ -63,8 +63,8 @@
         "retrieval augmented generation"
       ],
       "language": "en",
-      "status": "pending",
-      "scheduled_date": null
+      "status": "published",
+      "scheduled_date": "2026-05-28T14:41:55.760116"
     },
     {
       "id": 6,
@@ -76,8 +76,8 @@
         "time saving AI"
       ],
       "language": "en",
-      "status": "pending",
-      "scheduled_date": null
+      "status": "published",
+      "scheduled_date": "2026-05-28T14:54:19.848300"
     },
     {
       "id": 7,
@@ -89,47 +89,47 @@
         "Hermes Agent"
       ],
       "language": "pt",
-      "status": "pending",
-      "scheduled_date": null
+      "status": "published",
+      "scheduled_date": "2026-05-28T15:05:51.329388"
     },
     {
       "id": 8,
-      "title": "RAG local com documentos PDF: guia pr\u00e1tico",
-      "title_pt": "RAG local com documentos PDF: guia pr\u00e1tico",
+      "title": "RAG local com documentos PDF: guia prático",
+      "title_pt": "RAG local com documentos PDF: guia prático",
       "keywords": [
         "RAG local",
         "PDF AI",
         "consulta documentos AI"
       ],
       "language": "pt",
-      "status": "pending",
-      "scheduled_date": null
+      "status": "published",
+      "scheduled_date": "2026-05-28T15:17:43.125471"
     },
     {
       "id": 9,
-      "title": "Automa\u00e7\u00e3o de ciberseguran\u00e7a com Kali Linux + AI",
-      "title_pt": "Automa\u00e7\u00e3o de ciberseguran\u00e7a com Kali Linux + AI",
+      "title": "Automação de cibersegurança com Kali Linux + AI",
+      "title_pt": "Automação de cibersegurança com Kali Linux + AI",
       "keywords": [
         "Kali Linux AI",
-        "ciberseguran\u00e7a autom\u00e1tica",
+        "cibersegurança automática",
         "pentest automation"
       ],
       "language": "pt",
-      "status": "pending",
-      "scheduled_date": null
+      "status": "published",
+      "scheduled_date": "2026-05-28T15:30:14.697356"
     },
     {
       "id": 10,
       "title": "How to run 5 local LLMs on a single machine",
-      "title_pt": "Como correr 5 LLMs locais numa s\u00f3 m\u00e1quina",
+      "title_pt": "Como correr 5 LLMs locais numa só máquina",
       "keywords": [
         "multiple local LLMs",
         "Ollama multi-model",
         "local AI server"
       ],
       "language": "en",
-      "status": "pending",
-      "scheduled_date": null
+      "status": "published",
+      "scheduled_date": "2026-05-28T15:41:03.359143"
     },
     {
       "id": 11,
@@ -141,8 +141,8 @@
         "LangGraph CrewAI"
       ],
       "language": "en",
-      "status": "pending",
-      "scheduled_date": null
+      "status": "published",
+      "scheduled_date": "2026-05-28T15:50:29.543926"
     },
     {
       "id": 12,
@@ -154,6 +154,45 @@
         "LLM observability"
       ],
       "language": "en",
+      "status": "published",
+      "scheduled_date": "2026-05-28T15:58:53.271656"
+    },
+    {
+      "id": 13,
+      "title": "Build a passive income blog with AI: complete 2026 guide",
+      "title_pt": "Como criar um blog de rendimento passivo com AI",
+      "keywords": [
+        "AI passive income",
+        "automated blogging",
+        "AI content generation"
+      ],
+      "language": "en",
+      "status": "pending",
+      "scheduled_date": null
+    },
+    {
+      "id": 14,
+      "title": "Self-hosted AI vs cloud AI: cost comparison for startups",
+      "title_pt": "AI auto-hospedada vs cloud: comparacao de custos",
+      "keywords": [
+        "self-hosted AI cost",
+        "cloud vs local AI",
+        "AI startup budget"
+      ],
+      "language": "en",
+      "status": "pending",
+      "scheduled_date": null
+    },
+    {
+      "id": 15,
+      "title": "Como monetizar um site WordPress com ferramentas AI",
+      "title_pt": "Como monetizar um site WordPress com ferramentas AI",
+      "keywords": [
+        "monetizar WordPress",
+        "AI ferramentas blog",
+        "rendimento passivo AI"
+      ],
+      "language": "pt",
       "status": "pending",
       "scheduled_date": null
     }

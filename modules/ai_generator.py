@@ -1,26 +1,68 @@
 import httpx
-from modules.utils import load_config
+from modules.utils import load_config, log
+
 
 class OllamaClient:
     def __init__(self):
         cfg = load_config()
-        ollama_cfg = cfg.get('ollama', {})
-        self.base_url = ollama_cfg.get('base_url', 'http://localhost:11434')
-        self.model = ollama_cfg.get('model', 'qwen2.5:3b')
-        self.timeout = ollama_cfg.get('timeout', 600)
+        self.nexus_cfg = cfg.get('nexus', {})
+        self.ollama_cfg = cfg.get('ollama', {})
+        self.remote_url = self.nexus_cfg.get('api_url', 'http://192.168.1.116:8000')
+        self.remote_model = self.nexus_cfg.get('model', 'nexus-omni')
+        self.local_url = self.ollama_cfg.get('base_url', 'http://localhost:11434')
+        self.local_model = self.ollama_cfg.get('model', 'qwen2.5:3b')
+        self.timeout = self.ollama_cfg.get('timeout', 600)
+        self.use_remote = False
+        self._check_remote()
 
-    def _chat(self, prompt):
+    def _check_remote(self):
+        try:
+            r = httpx.get(f'http://192.168.1.116:11434/api/tags', timeout=5)
+            if r.status_code == 200:
+                self.use_remote = True
+                log('ai', f'Using UM790 Ollama ({self.remote_model})')
+            else:
+                log('ai', 'UM790 Ollama unhealthy, using local', 'WARN')
+        except Exception:
+            self.use_remote = False
+            log('ai', 'UM790 unreachable, using local Ollama', 'WARN')
+
+    def _chat_remote(self, prompt):
         r = httpx.post(
-            f'{self.base_url}/api/chat',
-            json={'model': self.model, 'messages': [{'role': 'user', 'content': prompt}], 'stream': False},
+            f'http://192.168.1.116:11434/api/chat',
+            json={'model': self.remote_model, 'messages': [{'role': 'user', 'content': prompt}], 'stream': False},
             timeout=self.timeout,
         )
         r.raise_for_status()
         return r.json()['message']['content']
 
+    def _chat_local(self, prompt):
+        r = httpx.post(
+            f'{self.local_url}/api/chat',
+            json={'model': self.local_model, 'messages': [{'role': 'user', 'content': prompt}], 'stream': False},
+            timeout=self.timeout,
+        )
+        r.raise_for_status()
+        return r.json()['message']['content']
+
+    def _chat(self, prompt):
+        if self.use_remote:
+            try:
+                return self._chat_remote(prompt)
+            except Exception as e:
+                log('ai', f'Remote failed: {e}, falling back to local', 'WARN')
+                self.use_remote = False
+        return self._chat_local(prompt)
+
     def health_check(self):
+        if self.use_remote:
+            try:
+                r = httpx.get(f'http://192.168.1.116:11434/api/tags', timeout=5)
+                return r.status_code == 200
+            except Exception:
+                pass
         try:
-            r = httpx.get(f'{self.base_url}/api/tags', timeout=5)
+            r = httpx.get(f'{self.local_url}/api/tags', timeout=5)
             return r.status_code == 200
         except Exception:
             return False

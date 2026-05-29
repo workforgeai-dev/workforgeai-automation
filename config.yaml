@@ -1,17 +1,22 @@
 app_name: workforgeai-automation
+version: 2.0.0
 content:
-  default_model: nexus-omni
-  fallback_model: qwen2.5-coder:14b
   languages:
   - en
   - pt
   max_articles_per_run: 3
-  max_words: 2000
-  min_words: 1200
+  max_words: 1200
+  min_words: 800
+nexus:
+  api_url: http://192.168.1.116:8000
+  api_key: ''
+  model: qwen2.5-coder:7b
+  timeout: 300
 ollama:
   base_url: http://localhost:11434
   model: qwen2.5:3b
   timeout: 600
+  fallback: true
 products:
 - currency: EUR
   name: NEXUS One-Click Deploy
@@ -22,11 +27,6 @@ products:
   name: AI Productivity Toolkit Premium
   price: 27
   slug: ai-productivity-toolkit-premium
-  update_frequency_days: 30
-- currency: EUR
-  name: Bug Bounty AI Agent
-  price: 37
-  slug: bug-bounty-ai-agent
   update_frequency_days: 30
 schedule:
   backup_time: 03:00
@@ -78,7 +78,12 @@ social:
     api_key: ''
     enabled: true
     refresh_token: ''
-version: 1.0.0
+thermal:
+  check_interval_minutes: 5
+  governor: conservative
+  max_temp: 70
+  ollama_threads: 2
 wordpress:
   api_base: https://workforgeai.com/wp-json/wp/v2
   url: https://workforgeai.com
+  username: workforgeai@gmail.com

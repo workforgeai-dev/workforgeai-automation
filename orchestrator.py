@@ -40,12 +40,20 @@ class Orchestrator:
 
     def check_health(self):
         results = {}
-        results["nexus_api"] = self.nexus.health_check()
+        results["ollama"] = self.nexus.health_check()
         if self.wp:
             results["wordpress"] = self.wp.check_health()
+        results["cpu_temp"] = self._get_cpu_temp()
         results["timestamp"] = datetime.datetime.now().isoformat()
         utils.log("health", json.dumps(results))
         return all(v for k, v in results.items() if isinstance(v, bool))
+
+    def _get_cpu_temp(self):
+        try:
+            t = Path("/sys/class/thermal/thermal_zone0/temp").read_text().strip()
+            return f"{int(t)//1000}C"
+        except:
+            return "unknown"
 
     def run_blog_pipeline(self, count=1):
         utils.log("pipeline", f"Starting blog pipeline: {count} article(s)")
@@ -91,12 +99,14 @@ class Orchestrator:
                 )
 
                 self._generate_video_for_topic(topic, content)
+                save_calendar(calendar)
 
             except Exception as e:
                 utils.log("pipeline", f"Failed: {topic['title']} - {e}", "ERROR")
                 topic["status"] = "failed"
+                save_calendar(calendar)
 
-        save_calendar(calendar)
+        # Final save for consistency
 
     def _generate_video_for_topic(self, topic, content):
         try:
