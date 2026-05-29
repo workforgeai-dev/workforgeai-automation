@@ -3,7 +3,7 @@
     {
       "id": 1,
       "title": "How to deploy your own AI agent in 30 minutes",
-      "title_pt": "Como implementar o teu próprio agente AI em 30 minutos",
+      "title_pt": "Como implementar o teu pr\u00f3prio agente AI em 30 minutos",
       "keywords": [
         "self-hosted AI agent",
         "local LLM deployment",
@@ -16,7 +16,7 @@
     {
       "id": 2,
       "title": "The complete guide to multi-agent orchestration with CrewAI",
-      "title_pt": "Guia completo de orquestração multi-agente com CrewAI",
+      "title_pt": "Guia completo de orquestra\u00e7\u00e3o multi-agente com CrewAI",
       "keywords": [
         "CrewAI tutorial",
         "multi-agent systems",
@@ -29,7 +29,7 @@
     {
       "id": 3,
       "title": "Why self-hosted AI is cheaper than ChatGPT Pro",
-      "title_pt": "Porque é que a AI auto-hospedada é mais barata que o ChatGPT Pro",
+      "title_pt": "Porque \u00e9 que a AI auto-hospedada \u00e9 mais barata que o ChatGPT Pro",
       "keywords": [
         "self-hosted AI cost",
         "local LLM vs cloud",
@@ -94,8 +94,8 @@
     },
     {
       "id": 8,
-      "title": "RAG local com documentos PDF: guia prático",
-      "title_pt": "RAG local com documentos PDF: guia prático",
+      "title": "RAG local com documentos PDF: guia pr\u00e1tico",
+      "title_pt": "RAG local com documentos PDF: guia pr\u00e1tico",
       "keywords": [
         "RAG local",
         "PDF AI",
@@ -107,11 +107,11 @@
     },
     {
       "id": 9,
-      "title": "Automação de cibersegurança com Kali Linux + AI",
-      "title_pt": "Automação de cibersegurança com Kali Linux + AI",
+      "title": "Automa\u00e7\u00e3o de ciberseguran\u00e7a com Kali Linux + AI",
+      "title_pt": "Automa\u00e7\u00e3o de ciberseguran\u00e7a com Kali Linux + AI",
       "keywords": [
         "Kali Linux AI",
-        "cibersegurança automática",
+        "ciberseguran\u00e7a autom\u00e1tica",
         "pentest automation"
       ],
       "language": "pt",
@@ -121,7 +121,7 @@
     {
       "id": 10,
       "title": "How to run 5 local LLMs on a single machine",
-      "title_pt": "Como correr 5 LLMs locais numa só máquina",
+      "title_pt": "Como correr 5 LLMs locais numa s\u00f3 m\u00e1quina",
       "keywords": [
         "multiple local LLMs",
         "Ollama multi-model",
@@ -167,8 +167,8 @@
         "AI content generation"
       ],
       "language": "en",
-      "status": "pending",
-      "scheduled_date": null
+      "status": "published",
+      "scheduled_date": "2026-05-29T06:33:19.280260"
     },
     {
       "id": 14,

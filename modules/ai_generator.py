@@ -5,67 +5,41 @@ from modules.utils import load_config, log
 class OllamaClient:
     def __init__(self):
         cfg = load_config()
-        self.nexus_cfg = cfg.get('nexus', {})
         self.ollama_cfg = cfg.get('ollama', {})
-        self.remote_url = self.nexus_cfg.get('api_url', 'http://192.168.1.116:8000')
-        self.remote_model = self.nexus_cfg.get('model', 'nexus-omni')
-        self.local_url = self.ollama_cfg.get('base_url', 'http://localhost:11434')
-        self.local_model = self.ollama_cfg.get('model', 'qwen2.5:3b')
+        self.base_url = self.ollama_cfg.get('base_url', 'http://localhost:11434')
+        self.model = self.ollama_cfg.get('model', 'qwen2.5:7b')
         self.timeout = self.ollama_cfg.get('timeout', 600)
-        self.use_remote = False
-        self._check_remote()
-
-    def _check_remote(self):
-        try:
-            r = httpx.get(f'http://192.168.1.116:11434/api/tags', timeout=5)
-            if r.status_code == 200:
-                self.use_remote = True
-                log('ai', f'Using UM790 Ollama ({self.remote_model})')
-            else:
-                log('ai', 'UM790 Ollama unhealthy, using local', 'WARN')
-        except Exception:
-            self.use_remote = False
-            log('ai', 'UM790 unreachable, using local Ollama', 'WARN')
-
-    def _chat_remote(self, prompt):
-        r = httpx.post(
-            f'http://192.168.1.116:11434/api/chat',
-            json={'model': self.remote_model, 'messages': [{'role': 'user', 'content': prompt}], 'stream': False},
-            timeout=self.timeout,
-        )
-        r.raise_for_status()
-        return r.json()['message']['content']
-
-    def _chat_local(self, prompt):
-        r = httpx.post(
-            f'{self.local_url}/api/chat',
-            json={'model': self.local_model, 'messages': [{'role': 'user', 'content': prompt}], 'stream': False},
-            timeout=self.timeout,
-        )
-        r.raise_for_status()
-        return r.json()['message']['content']
+        self.telegram_cfg = cfg.get('telegram', {})
+        self.tg_token = self.telegram_cfg.get('token', '')
+        self.tg_chat_id = self.telegram_cfg.get('chat_id', '')
 
     def _chat(self, prompt):
-        if self.use_remote:
-            try:
-                return self._chat_remote(prompt)
-            except Exception as e:
-                log('ai', f'Remote failed: {e}, falling back to local', 'WARN')
-                self.use_remote = False
-        return self._chat_local(prompt)
+        r = httpx.post(
+            f'{self.base_url}/api/chat',
+            json={'model': self.model, 'messages': [{'role': 'user', 'content': prompt}], 'stream': False, 'options': {'num_predict': 4096}},
+            timeout=self.timeout,
+        )
+        r.raise_for_status()
+        return r.json()['message']['content']
 
     def health_check(self):
-        if self.use_remote:
-            try:
-                r = httpx.get(f'http://192.168.1.116:11434/api/tags', timeout=5)
-                return r.status_code == 200
-            except Exception:
-                pass
         try:
-            r = httpx.get(f'{self.local_url}/api/tags', timeout=5)
+            r = httpx.get(f'{self.base_url}/api/tags', timeout=5)
             return r.status_code == 200
         except Exception:
             return False
+
+    def send_telegram(self, message):
+        if not self.tg_token or not self.tg_chat_id:
+            return
+        try:
+            httpx.post(
+                f'https://api.telegram.org/bot{self.tg_token}/sendMessage',
+                json={'chat_id': self.tg_chat_id, 'text': message, 'parse_mode': 'HTML'},
+                timeout=10,
+            )
+        except Exception as e:
+            log('telegram', f'Failed to send: {e}', 'WARN')
 
     def generate_article(self, topic, keywords, language='en', word_count=1500):
         lang_instruction = 'Write in Portuguese from Portugal (use European Portuguese).' if language == 'pt' else 'Write in English.'

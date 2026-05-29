@@ -1,22 +1,19 @@
 app_name: workforgeai-automation
-version: 2.0.0
+version: 3.0.0
 content:
   languages:
   - en
   - pt
   max_articles_per_run: 3
-  max_words: 1200
+  max_words: 1500
   min_words: 800
-nexus:
-  api_url: http://192.168.1.116:8000
-  api_key: ''
-  model: qwen2.5-coder:7b
-  timeout: 300
 ollama:
   base_url: http://localhost:11434
-  model: qwen2.5:3b
+  model: qwen2.5:7b
   timeout: 600
-  fallback: true
+telegram:
+  token: 8385871459:AAFWkAnCSzp9G0o8VqEGL_QWWyHbZ6AZp4k
+  chat_id: '5355475532'
 products:
 - currency: EUR
   name: NEXUS One-Click Deploy

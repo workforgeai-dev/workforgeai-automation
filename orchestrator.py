@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-WorkForgeAI Automation Engine — Orchestrator v2.0
-100% autonomous content, video, social, and product pipeline.
+WorkForgeAI Automation Engine - Orchestrator v3.0
+100% Pi-local. Zero UM790 dependency. Telegram notifications.
 """
 import sys
 import json
@@ -34,9 +34,12 @@ class Orchestrator:
             return
         self.wp = WordPressClient(
             self.cfg["wordpress"]["url"],
-            username or "workforgeai@gmail.com",
+            username or self.cfg["wordpress"].get("username", "workforgeai@gmail.com"),
             self.wp_app_password,
         )
+
+    def _notify(self, message):
+        self.nexus.send_telegram(message)
 
     def check_health(self):
         results = {}
@@ -67,6 +70,8 @@ class Orchestrator:
         for topic in topics[:count]:
             try:
                 utils.log("pipeline", f"Generating: {topic['title']}")
+                self._notify(f"Writing article: {topic['title']}...")
+
                 raw = self.nexus.generate_article(
                     topic=topic["title"],
                     keywords=topic["keywords"],
@@ -86,16 +91,14 @@ class Orchestrator:
 
                 topic["status"] = "published"
                 topic["scheduled_date"] = datetime.datetime.now().isoformat()
-                utils.log("pipeline", f"Published: {topic['title']} (ID: {result.get('id')})")
-
-                social_content = self.nexus.generate_social_post(
-                    raw, "twitter", topic.get("language", "en")
-                )
-                self.social.cross_post(
-                    topic["title"],
-                    meta_desc,
-                    "twitter",
-                    social_content,
+                post_id = result.get('id', '?')
+                post_link = result.get('link', self.cfg["wordpress"]["url"])
+                utils.log("pipeline", f"Published: {topic['title']} (ID: {post_id})")
+                self._notify(
+                    f"Article published!\n\n"
+                    f"Title: {topic['title']}\n"
+                    f"Link: {post_link}\n"
+                    f"Words: {len(content.split())}"
                 )
 
                 self._generate_video_for_topic(topic, content)
@@ -103,17 +106,18 @@ class Orchestrator:
 
             except Exception as e:
                 utils.log("pipeline", f"Failed: {topic['title']} - {e}", "ERROR")
+                self._notify(f"Article FAILED: {topic['title']}\nError: {e}")
                 topic["status"] = "failed"
                 save_calendar(calendar)
-
-        # Final save for consistency
 
     def _generate_video_for_topic(self, topic, content):
         try:
             from modules.video_pipeline import VideoPipeline
             video = VideoPipeline()
             result = video.generate_video(topic["title"], content, topic.get("language", "en"))
-            utils.log("video", f"Video generated: {result.get('video_path', '?')}")
+            vpath = result.get('video_path', '?')
+            utils.log("video", f"Video generated: {vpath}")
+            self._notify(f"Video ready: {vpath}")
             return result
         except ImportError:
             utils.log("video", "VideoPipeline not available", "SKIP")
@@ -158,10 +162,6 @@ class Orchestrator:
                 try:
                     pkg_path = Path(pkg)
                     pkg_name = pkg_path.stem.replace("-", " ").title()
-                    prices = {"nexus": 49, "toolkit": 27, "bug": 37}
-                    for key, price in prices.items():
-                        if key in pkg:
-                            break
                     price = 49
                     upload_url = f"{self.cfg['wordpress']['url']}/wp-content/uploads/products/{pkg_path.name}"
                     self.wp.create_product(pkg_name, f"AI-powered {pkg_name}", price, upload_url)
@@ -171,16 +171,26 @@ class Orchestrator:
 
     def run_backup(self):
         utils.log("pipeline", "Running backup")
+        self._notify("Backup started")
 
     def run_weekly_report(self):
         utils.log("pipeline", "Generating weekly report")
         status = self.check_health()
-        report = {
-            "date": datetime.datetime.now().isoformat(),
-            "health": status,
-            "message": "System operational" if status else "Issues detected",
-        }
-        utils.log("report", json.dumps(report))
+        calendar = load_calendar()
+        published = sum(1 for t in calendar["topics"] if t["status"] == "published")
+        pending = sum(1 for t in calendar["topics"] if t["status"] == "pending")
+        failed = sum(1 for t in calendar["topics"] if t["status"] == "failed")
+        report = (
+            f"Weekly Report\n\n"
+            f"Health: {'OK' if status else 'ISSUES'}\n"
+            f"Temp: {self._get_cpu_temp()}\n"
+            f"Articles published: {published}\n"
+            f"Pending: {pending}\n"
+            f"Failed: {failed}\n"
+            f"Model: {self.cfg.get('ollama', {}).get('model', '?')}"
+        )
+        self._notify(report)
+        utils.log("report", report)
 
 
 def main():
@@ -211,7 +221,6 @@ def main():
         "all": lambda: (
             orchestrator.check_health(),
             orchestrator.run_blog_pipeline(args.count),
-            orchestrator.run_social_pipeline(),
             orchestrator.run_video_pipeline(),
             orchestrator.run_products_pipeline(),
         ),
